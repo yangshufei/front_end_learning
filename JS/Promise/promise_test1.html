@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<bocy>
+    <button onclick="fetchData('A')">A</button>
+    <button onclick="fetchData('B')">B</button>
+    <button onclick="fetchData('C')">C</button>
+</body>
+<script>
+    //  页面上有三个按钮，分别为 A、B、C，点击各个按钮都会发送异步请求且互不影响，每次请求回来的数据都为按钮的名字。
+    // 请实现当用户依次点击 A、B、C、A、C、B 的时候，最终获取的数据为 ABCACB。
+    
+    // 构建promise 队列
+    const promiseQueue = [];
+    let isRunning = false;
+
+    function fetchData(params) {
+        const promise =  new Promise((resolve, reject)=>{
+            setTimeout(() => {
+                resolve(params)
+            }, Math.random() * 2000)
+        })
+        promiseQueue.push(promise)
+        // isRunning ? null : run ()
+        if (!isRunning) {
+          console.log('rrr')
+          run()
+        }
+    }
+    // run 会串行执行 promise队列，直到队列为空
+    function run() {
+        const promise = promiseQueue.shift()
+        if(promise){
+            isRunning = true
+            promise.then(res=>{
+                console.log(res)
+                run()
+            })
+        }else{
+            console.log('ff')
+            isRunning = false
+            return;
+        }
+    }
+</script>
+<style>
+    button {
+        width: 200px;
+        height: 80px;
+    }
+</style>
+</html>
