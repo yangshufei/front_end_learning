@@ -49,10 +49,10 @@ class Scheduler {
     })
   }
 }
-const scheduler = new Scheduler(2);
+const scheduler = new Scheduler(2)
 const addTask = (time, order) => {
   scheduler.add(time, order)
-};
+}
 addTask(1000, '1')
 addTask(500, '2')
 addTask(300, '3')
