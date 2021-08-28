@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>选择器</title>
+</head>
+<body>
+  <div class="box a">a</div>
+  <div class="box b">b</div>
+  <div class="box c">c</div>
+
+  <!-- .b和.c float:right;  b会在最右边 -->
+  <style>
+    .a {
+      float: left;
+    }
+    .b {
+      float: right;
+    }
+    .c {
+      float: left;
+    }
+
+    .a,.b,.c {
+      width: 100px;
+      height: 100px;
+      background: #ccc;
+      margin-right: 20px;
+    }
+    /* .a元素紧跟的首个.b元素 */
+    .a:hover +.b {
+      background: pink;
+    }
+    /* 选择前面有 .a 元素的每个 .c 元素。 */
+    .a:hover ~ .c {
+      background: red;
+    }
+  </style>
+</body>
+</html>
