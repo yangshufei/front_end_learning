@@ -14,15 +14,27 @@ const shallClone = (target) => {
   }
 }
 
+const data = {
+  a: 1,
+  b: 2,
+  c: {
+    d: 3,
+    e: 4
+  }
+}
+
+function isObj(target) {
+  return typeof target === 'object' && target !== null
+}
+
 // 深克隆： 层层拷贝对象或数组的每一层内容
 function deepClone(target)  {
-  if (target === null) return null;
-  if (typeof target !== 'object') return target;
+  if (!isObj(target)) return target
 
   const cloneTarget = Array.isArray(target) ? [] : {};
   for (let prop in target) {
     if (target.hasOwnProperty(prop)) {
-      cloneTarget[prop] = deepClone(target[prop]);
+      cloneTarget[prop] = isObj(target[prop]) ? deepClone(target[prop]) : target[prop];
     }
   }
   return cloneTarget;
